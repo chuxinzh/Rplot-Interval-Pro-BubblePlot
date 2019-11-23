@@ -4,7 +4,7 @@ By counting the proportion of sale volume in different Retail Price interval, we
 
 Sample Plot:
 
-(插入sample图)
+![image](https://github.com/czhang02-su/Image-set/blob/master/aBRANDRetail%20Proportion.png)
 
 ## What can this plot do?
 
@@ -15,8 +15,14 @@ Sample Plot:
 
 ## Sample Data
 
-* Sample Data
+```R
+  car_p_sum <- data.frame(FBRAND = paste(sample(letters, 1000, replace= TRUE),'BRAND',sep='-'),
+                        RETAIL = runif(1000, min=10, max=100),
+                        sale = runif(1000,min=1,max=1000),
+                        year =  sample(c('2017','2018','2019'), 1000, replace=TRUE))
 
+```
+![image](https://github.com/czhang02-su/Image-set/blob/master/sample%20data.jpg)
 ## Description
 ### Preparing Data for Ploting
 
@@ -29,7 +35,7 @@ Creating function to calculate the data
       mutate(need1 = sum(TRIMSALES)) %>% #Calculate sale volume in certain interval as numerator
       mutate(REprop = (need1/total)*100) %>% #Calculate the proportion
       mutate(interval = paste(startnum,startnum1,sep='-'))%>% #Paste interval name stored as plot y-value later
-      mutate(year = '2017')%>%
+      mutate(year = year)%>%
       select(interval,REprop,year)%>%
       sample_n(1)
   }
@@ -59,7 +65,7 @@ Output data in while loop
     startnum <- startnum + 5
   }
 ```
-（插入data最终结果)
+![image](https://github.com/czhang02-su/Image-set/blob/master/data%20after%20loop.jpg)
 
 Delete null or too small value
 ```R
@@ -96,7 +102,7 @@ Prepare Final graph data
     graph$intername <- reorder(graph$intername,graph$interval)
     graph$prop[which(graph$prop == 0)] <- NA
 ```
-（插入data最终结果)
+![image](https://github.com/czhang02-su/Image-set/blob/master/final%20graph%20data.jpg)
 
 ### Draw the plot
 ```R
@@ -118,4 +124,4 @@ Prepare Final graph data
     print(p)
     dev.off()
 ```
-（插入图表)
+![image](https://github.com/czhang02-su/Image-set/blob/master/aBRANDRetail%20Proportion.png)
